@@ -23,7 +23,8 @@
                     <vee-field type="text" name="modified_name"
                       class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
                         transition duration-500 focus:outline-none focus:border-black rounded"
-                      placeholder="Enter Song Title" />
+                      placeholder="Enter Song Title" @input="updateUnsavedFlag(true)"
+                      />
                       <ErrorMessage class="text-red-600" name="modified_name" />
                   </div>
                   <div class="mb-3">
@@ -31,7 +32,9 @@
                     <vee-field type="text" name="genre"
                       class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
                         transition duration-500 focus:outline-none focus:border-black rounded"
-                      placeholder="Enter Genre" />
+                      placeholder="Enter Genre"
+                      @input="updateUnsavedFlag(true)"
+                       />
                       <ErrorMessage class="text-red-600" name="genre" />
                   </div>
                   <button type="submit" class="py-1.5 px-3 rounded text-white bg-green-600"
@@ -69,6 +72,9 @@ export default {
       type: Function,
       required: true,
     },
+    updateUnsavedFlag: {
+      type: Function,
+    },
   },
   data() {
     return {
@@ -99,6 +105,7 @@ export default {
       }
 
       this.updateSong(this.index, values);
+      this.updateUnsavedFlag(false);
 
       this.in_submission = false;
       this.alert_variant = 'bg-green-500';
