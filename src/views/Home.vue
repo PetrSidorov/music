@@ -49,16 +49,58 @@ export default {
   data() {
     return {
       songs: [],
+      maxPerPage: 25,
+      pendingRequests: false,
     };
   },
   async created() {
-    const snapshots = await songsCollection.get();
-    snapshots.forEach((document) => {
-      this.songs.push({
-        docID: document.id,
-        ...document.data(),
+    this.getSongs();
+
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      const { scrollTop, offsetHeight } = document.documentElement;
+      const { innerHeight } = window;
+      const bottomOfWindow = Math.round(scrollTop) + innerHeight === offsetHeight;
+      if (bottomOfWindow) {
+        this.getSongs();
+      }
+    },
+    async getSongs() {
+      if (this.pendingRequests) {
+        return;
+      }
+
+      this.pendingRequests = true;
+
+      let snapshots;
+      if (this.songs.length) {
+        const lastDoc = await songsCollection
+          .doc(this.songs[this.songs.length - 1].docID)
+          .get();
+        snapshots = await songsCollection
+          .orderBy('modified_name')
+          .startAfter(lastDoc)
+          .limit(this.maxPerPage).get();
+      } else {
+        snapshots = await songsCollection
+          .orderBy('modified_name')
+          .limit(this.maxPerPage).get();
+      }
+
+      snapshots.forEach((document) => {
+        this.songs.push({
+          docID: document.id,
+          ...document.data(),
+        });
       });
-    });
+
+      this.pendingRequests = false;
+    },
   },
 };
 </script>
