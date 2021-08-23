@@ -7,6 +7,7 @@ import { auth } from '@/includes/firebase';
 import Icon from '@/directives/icon';
 import '@/assets/tailwind.css';
 import '@/assets/main.css';
+import '@/registerServiceWorker';
 
 let app;
 
