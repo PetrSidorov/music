@@ -9,7 +9,7 @@
       <!-- Play/Pause Button -->
       <button @click.prevent="newSong(song)"
       type="button" class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full
-        focus:outline-none">
+        focus:outline-none" id="play-button">
         <i class="fa" :class="{ 'fa-play': !playing, 'fa-pause':playing }"></i>
       </button>
       <div class="z-50 text-left ml-8">
