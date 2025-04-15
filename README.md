@@ -1,4 +1,14 @@
-# music
+
+# Musical Vue 🎵
+
+A Vue-based Spotify-inspired music application built for educational purposes. This project demonstrates modern frontend development techniques and Vue.js architecture while paying homage to one of the most popular streaming platforms.
+
+## ✨ Features
+
+Music Player: Full-featured audio player with play/pause, skip, and volume controls
+Library Browse: Explore a curated collection of tracks, upload new ones
+Playlist Management: Create, edit, and manage custom playlists
+Responsive Design: Seamless experience across desktop and mobile devices
 
 ## Project setup
 ```
